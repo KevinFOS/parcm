@@ -45,6 +45,5 @@ for file in files:
             mindis=music[0]['basic']
             minsong=music[0]['no']
             minpos=row
-    print(names[minsong])
-    print("Starting At (vggish frame):",minpos)
-    print("Dist:",mindis,"Score:",int(100/(mindis/256)))
+    print("Score:",int(100/(mindis/256)))
+    print("Closest:",names[minsong])
