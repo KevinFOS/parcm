@@ -1,7 +1,8 @@
 import numpy as np
+import glob
 import csv
 from sklearn.decomposition import PCA
-names_raw=csv.reader(open("./data/list.csv",encoding="ISO-8859-1"))
+names_raw=csv.reader(open("./std/list.csv",encoding="ISO-8859-1"))
 names=[]
 for row in names_raw:
     names.append(row)
@@ -9,19 +10,17 @@ cur=[]
 basic_features=[]
 full_features=np.empty([64,0],dtype=float)
 for num in range(0,245):
-    cur.append(np.loadtxt('./data/vggish_csv/'+str(num+1)+'.csv',delimiter=','))
+    cur.append(np.loadtxt('./std/vggish_csv/'+str(num+1)+'.csv',delimiter=','))
     cur[num]=cur[num][1:][0:64]
     mean_features=np.mean(cur[num],axis=0)
     std_features=np.std(cur[num],axis=0)
     max_features=np.max(cur[num],axis=0)
     min_features=np.min(cur[num],axis=0)
-    print(min_features)
-    print(max_features)
     aggregated_features=np.hstack([mean_features,std_features,max_features,min_features])
     basic_features.append(aggregated_features)
 basic_dist=[]
 dt=np.dtype([('no',int),('basic',float)])
-files=glob.glob("./examples/csvs/*.csv")
+files=glob.glob("./data/csvs/*.csv")
 for file in files:
     print(file)
     target=np.loadtxt(file,delimiter=',')
