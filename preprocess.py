@@ -7,10 +7,12 @@ import soundfile as sf
 files=glob.glob("./data/raw/*.mp3")
 wavPath="./data/wav/"
 exportPath="./data/pure/"
+print("WAV export in progress:")
 for file in tqdm.tqdm(files):
     sound = AudioSegment.from_mp3(file)
     sound.export(wavPath+file.split("\\")[-1][:-3]+'wav',format="wav")
 wavs=glob.glob("./data/wav/*.wav")
+print("Resampling and Normalization in progress:")
 for file in tqdm.tqdm(wavs):
     sound,sr=librosa.load(file,mono=False)
     sound=librosa.to_mono(sound)
